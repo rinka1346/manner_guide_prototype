@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>App Clip Style Bottom Sheet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", sans-serif;
+      -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
+    }
+
+    .backdrop-layer {
+      animation: fadeInOverlay 450ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+    }
+
+    .sheet-enter {
+      animation: slideUpSheet 550ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      transform: translateY(100%);
+    }
+
+    @keyframes fadeInOverlay {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUpSheet {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0%);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-black antialiased">
+  <main class="relative mx-auto h-screen w-full max-w-md overflow-hidden bg-neutral-900">
+    <section
+      class="absolute inset-0 bg-cover bg-center"
+      style="background-image: radial-gradient(circle at 20% 10%, rgba(251, 191, 36, 0.35), transparent 35%), radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.25), transparent 35%), linear-gradient(150deg, #2e2a27 0%, #4e3928 42%, #1f1f1f 100%);"
+      aria-hidden="true"
+    ></section>
+
+    <section class="absolute inset-0 flex flex-col justify-between p-6 text-white">
+      <div class="rounded-2xl bg-black/25 p-4 backdrop-blur-sm">
+        <p class="text-xs font-medium uppercase tracking-[0.24em] text-amber-100/80">Kyoto Evening Table</p>
+        <p class="mt-2 text-sm text-white/85">A warm traditional meal setting with handmade bowls and seasonal dishes.</p>
+      </div>
+      <div class="rounded-2xl bg-black/20 p-4 backdrop-blur-sm">
+        <p class="text-sm text-white/90">Tap into the App Clip style card to read this cultural dining tip.</p>
+      </div>
+    </section>
+
+    <div class="backdrop-layer absolute inset-0 bg-black/35 backdrop-blur-[6px]"></div>
+
+    <section class="absolute inset-x-0 bottom-0 z-20 sheet-enter">
+      <div class="rounded-t-3xl bg-white px-6 pb-10 pt-3 shadow-2xl">
+        <div class="mx-auto h-1.5 w-12 rounded-full bg-gray-300"></div>
+        <div class="mt-3 flex justify-end">
+          <div
+            id="lang-toggle"
+            class="relative inline-flex rounded-full bg-gray-100 p-0.5"
+            role="group"
+            aria-label="Language switch"
+          >
+            <span
+              id="lang-pill"
+              class="pointer-events-none absolute left-0.5 top-0.5 h-7 w-[3.5rem] rounded-full bg-white shadow-sm transition-transform duration-300 ease-out"
+              aria-hidden="true"
+            ></span>
+            <button
+              type="button"
+              data-lang="en"
+              class="lang-btn relative z-10 h-7 w-[3.5rem] rounded-full text-xs font-semibold tracking-wide text-gray-800 transition-colors duration-200"
+              aria-pressed="true"
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              data-lang="zh"
+              class="lang-btn relative z-10 h-7 w-[3.5rem] rounded-full text-xs font-semibold tracking-wide text-gray-500 transition-colors duration-200"
+              aria-pressed="false"
+            >
+              中文
+            </button>
+          </div>
+        </div>
+
+        <header class="mt-6">
+          <h1 id="title-text" class="text-2xl font-semibold tracking-tight text-gray-900">Hold Your Bowl, Honor the Meal 🍚</h1>
+          <p id="lead-text" class="mt-3 text-base leading-relaxed text-gray-600">
+            In Japan, holding your rice or soup bowl is a beautiful and natural dining etiquette. Here is why:
+          </p>
+        </header>
+
+        <div class="mt-7 space-y-5">
+          <article class="rounded-2xl bg-gray-50 p-5">
+            <div class="flex items-start gap-4">
+              <div class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-xl">✨</div>
+              <div>
+                <h2 id="item1-heading" class="text-lg font-semibold text-gray-900">Graceful Dining</h2>
+                <p id="item1-body" class="mt-2 text-sm leading-relaxed text-gray-600">
+                  Unlike using spoons, eating with chopsticks across a distance can lead to spills. Lifting the bowl closer
+                  to your mouth keeps your posture elegant and your table clean.
+                </p>
+              </div>
+            </div>
+          </article>
+
+          <article class="rounded-2xl bg-gray-50 p-5">
+            <div class="flex items-start gap-4">
+              <div class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-100 text-xl">🙏</div>
+              <div>
+                <h2 id="item2-heading" class="text-lg font-semibold text-gray-900">Respect the Craft</h2>
+                <p id="item2-body" class="mt-2 text-sm leading-relaxed text-gray-600">
+                  Holding the dishware is a gesture of appreciation. It shows your gratitude to the chef who prepared the
+                  meal and the artisan who crafted the bowl.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const translations = {
+      en: {
+        title: "Hold Your Bowl, Honor the Meal 🍚",
+        lead: "In Japan, holding your rice or soup bowl is a beautiful and natural dining etiquette. Here is why:",
+        item1Heading: "Graceful Dining",
+        item1Body:
+          "Unlike using spoons, eating with chopsticks across a distance can lead to spills. Lifting the bowl closer to your mouth keeps your posture elegant and your table clean.",
+        item2Heading: "Respect the Craft",
+        item2Body:
+          "Holding the dishware is a gesture of appreciation. It shows your gratitude to the chef who prepared the meal and the artisan who crafted the bowl."
+      },
+      zh: {
+        title: "端起饭碗，致敬佳肴 🍚",
+        lead: "在日本，端起饭碗或汤碗是一种优美且自然的用餐礼仪。原因如下：",
+        item1Heading: "优雅的举止",
+        item1Body:
+          "与使用勺子不同，远距离使用筷子夹菜容易洒落。将碗端近嘴边能让您的姿态保持优雅，同时保持桌面整洁。",
+        item2Heading: "致敬匠心",
+        item2Body:
+          "端起器皿是对食物的一种欣赏。这既表达了对烹饪美食的厨师的感谢，也体现了对制作器皿的匠人的敬意。"
+      }
+    };
+
+    const targets = {
+      title: document.getElementById("title-text"),
+      lead: document.getElementById("lead-text"),
+      item1Heading: document.getElementById("item1-heading"),
+      item1Body: document.getElementById("item1-body"),
+      item2Heading: document.getElementById("item2-heading"),
+      item2Body: document.getElementById("item2-body")
+    };
+
+    const langButtons = Array.from(document.querySelectorAll(".lang-btn"));
+    const pill = document.getElementById("lang-pill");
+
+    function applyLanguage(lang) {
+      const dict = translations[lang];
+      if (!dict) return;
+
+      targets.title.textContent = dict.title;
+      targets.lead.textContent = dict.lead;
+      targets.item1Heading.textContent = dict.item1Heading;
+      targets.item1Body.textContent = dict.item1Body;
+      targets.item2Heading.textContent = dict.item2Heading;
+      targets.item2Body.textContent = dict.item2Body;
+
+      const isChinese = lang === "zh";
+      pill.style.transform = isChinese ? "translateX(100%)" : "translateX(0)";
+
+      langButtons.forEach((button) => {
+        const active = button.dataset.lang === lang;
+        button.setAttribute("aria-pressed", String(active));
+        button.classList.toggle("text-gray-800", active);
+        button.classList.toggle("text-gray-500", !active);
+      });
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        applyLanguage(button.dataset.lang);
+      });
+    });
+
+    applyLanguage("en");
+  </script>
+</body>
+</html>
