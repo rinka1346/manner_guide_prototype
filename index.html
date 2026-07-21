@@ -1,4 +1,157 @@
 <!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shoe Removal Etiquette</title>
+<style>
+  /* CSS: モバイルファースト・軽量化設定 */
+  :root {
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --accent-color: #555;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+  button#lang-toggle {
+    padding: 8px 16px;
+    border: 1px solid var(--accent-color);
+    background-color: transparent;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  main {
+    padding: 0 24px 40px;
+  }
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 14px;
+    text-align: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 24px;
+    margin: 0 0 8px 0;
+    text-align: center;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--accent-color);
+    margin: 0 0 32px 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 16px;
+  }
+  .content-block {
+    margin-bottom: 24px;
+  }
+  .content-block h3 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+  }
+  .content-block p {
+    font-size: 15px;
+    margin: 0;
+  }
+
+  /* 言語表示のトグル制御 */
+  body.lang-ja .en { display: none; }
+  body.lang-en .ja { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <button id="lang-toggle">English</button>
+</header>
+
+<main>
+  <!-- 視覚情報配置領域 -->
+  <div class="image-placeholder">
+    <span class="ja">（ここに内と外の境界や動作を図解した画像を配置）</span>
+    <span class="en">(Place an illustration of the boundary and etiquette here)</span>
+  </div>
+
+  <h1 class="ja">ここで靴をお脱ぎください</h1>
+  <h1 class="en">Please remove your shoes here.</h1>
+
+  <h2 class="ja">清浄な空間を保つ日本の作法</h2>
+  <h2 class="en">A Japanese Custom to Keep Spaces Clean</h2>
+
+  <div class="content-block">
+    <h3 class="ja">1. 空間の区別</h3>
+    <h3 class="en">1. Distinction of Space</h3>
+    <p class="ja">日本には、建物の「外」と「内」を明確に区別し、屋内を特別な空間として扱う文化があります。</p>
+    <p class="en">Japanese culture clearly distinguishes between the "outside" and "inside" of a building, treating the indoors as a special space.</p>
+  </div>
+
+  <div class="content-block">
+    <h3 class="ja">2. 清潔さの維持</h3>
+    <h3 class="en">2. Maintaining Cleanliness</h3>
+    <p class="ja">靴を脱ぐことは、外の汚れを持ち込まず、屋内の床や畳を清潔に保つための習慣です。</p>
+    <p class="en">Taking off shoes is a custom to prevent bringing in outside dirt and to maintain the cleanliness of the floors and tatami mats.</p>
+  </div>
+
+  <div class="content-block">
+    <h3 class="ja">3. 空間への敬意</h3>
+    <h3 class="en">3. Respect for the Space</h3>
+    <p class="ja">靴を脱ぐという行為を通じて、その場所の歴史や空間に対する敬意を示しています。</p>
+    <p class="en">The act of removing shoes demonstrates respect for the history and the space itself.</p>
+  </div>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+  const toggleBtn = document.getElementById("lang-toggle");
+
+  // 1. OS/ブラウザ設定からの初期言語判定
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith("ja")) {
+    body.classList.add("lang-ja");
+    toggleBtn.textContent = "English";
+  } else {
+    body.classList.add("lang-en");
+    toggleBtn.textContent = "日本語";
+  }
+
+  // 2. 手動切り替え時のフォールバック処理
+  toggleBtn.addEventListener("click", () => {
+    if (body.classList.contains("lang-ja")) {
+      body.classList.replace("lang-ja", "lang-en");
+      toggleBtn.textContent = "日本語";
+    } else {
+      body.classList.replace("lang-en", "lang-ja");
+      toggleBtn.textContent = "English";
+    }
+  });
+});
+</script>
+
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
