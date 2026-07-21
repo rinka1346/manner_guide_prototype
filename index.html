@@ -36,20 +36,18 @@
   main {
     padding: 0 24px 40px;
   }
-  .image-placeholder {
+  .image-container {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color: #e0e0e0;
-    border-radius: 8px;
     margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #777;
-    font-size: 14px;
-    text-align: center;
-    padding: 16px;
-    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden; /* 角丸を画像にも適用するため */
+  }
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover; /* 画像の比率を維持したまま枠内に収める */
   }
   h1 {
     font-size: 24px;
@@ -89,9 +87,8 @@
 </header>
 
 <main>
-  <div class="image-placeholder">
-    <span class="ja">（ここに内と外の境界や動作を図解した画像を配置）</span>
-    <span class="en">(Place an illustration of the boundary and etiquette here)</span>
+  <div class="image-container">
+    <img src="shoe-etiquette.webp" alt="靴を揃えて脱ぐ作法の図解" class="hero-image">
   </div>
 
   <h1 class="ja">ここで靴をお脱ぎください</h1>
