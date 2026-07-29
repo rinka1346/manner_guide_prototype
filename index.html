@@ -8,82 +8,233 @@
 <style>
   :root {
     color-scheme: light;
-    --text-color: #333;
-    --bg-color: #f9f9f9;
-    --accent-color: #555;
+    --text-primary: #2C363F;
+    --text-secondary: rgba(44, 54, 63, 0.72);
+    --bg-page: #FDFBF7;
+    --bg-header: rgba(253, 251, 247, 0.92);
+    --bg-card: #FFFFFF;
+    --border-subtle: rgba(74, 118, 110, 0.12);
+    --border-divider: rgba(74, 118, 110, 0.18);
+    --accent: #4A766E;
+    --accent-soft: rgba(74, 118, 110, 0.1);
+    --step-bg: #4A766E;
+    --step-text: #FFFFFF;
+    --shadow-card: 0 2px 10px rgba(74, 118, 110, 0.08), 0 1px 3px rgba(44, 54, 63, 0.04);
+    --shadow-card-hover: 0 4px 18px rgba(74, 118, 110, 0.12);
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transition-lang: 0.28s ease;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    line-height: 1.6;
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    background-color: var(--bg-page);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
   }
+
+  /* ── Fixed header with lang toggle ── */
   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
     display: flex;
     justify-content: flex-end;
-    padding: 16px;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--bg-header);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
   }
+
   button#lang-toggle {
-    padding: 8px 16px;
-    border: 1px solid var(--accent-color);
-    background-color: transparent;
-    border-radius: 4px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid var(--border-divider);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
     font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    box-shadow: var(--shadow-card);
   }
+
+  button#lang-toggle:active {
+    transform: scale(0.97);
+  }
+
+  @media (hover: hover) {
+    button#lang-toggle:hover {
+      border-color: var(--accent);
+      background-color: var(--accent-soft);
+    }
+  }
+
+  /* ── Main layout ── */
   main {
-    padding: 0 24px 40px;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 72px 20px 48px;
   }
+
   .image-container {
     width: 100%;
-    margin-bottom: 24px;
-    border-radius: 8px;
-    overflow: hidden; /* 角丸を画像にも適用するため */
+    margin-bottom: 28px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-subtle);
   }
+
   .hero-image {
     width: 100%;
     height: auto;
     display: block;
     aspect-ratio: 16 / 9;
-    object-fit: cover; /* 画像の比率を維持したまま枠内に収める */
-  }
-  h1 {
-    font-size: 24px;
-    margin: 0 0 8px 0;
-    text-align: center;
-  }
-  h2 {
-    font-size: 16px;
-    font-weight: normal;
-    color: var(--accent-color);
-    margin: 0 0 32px 0;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 16px;
-  }
-  .content-block {
-    margin-bottom: 24px;
-  }
-  .content-block h3 {
-    font-size: 16px;
-    margin: 0 0 8px 0;
-  }
-  .content-block p {
-    font-size: 15px;
-    margin: 0;
+    object-fit: cover;
   }
 
-  /* 言語表示のトグル制御 */
-  body.lang-ja .en { display: none; }
-  body.lang-en .ja { display: none; }
+  /* ── Title hierarchy ── */
+  .hero-text {
+    text-align: center;
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border-divider);
+  }
+
+  .lang-stack {
+    display: grid;
+  }
+
+  .lang-stack > .ja,
+  .lang-stack > .en {
+    grid-area: 1 / 1;
+    margin: 0;
+    transition: opacity var(--transition-lang), visibility var(--transition-lang);
+  }
+
+  h1 {
+    font-size: clamp(1.625rem, 5vw, 1.875rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  h2 {
+    font-size: clamp(0.9375rem, 3.5vw, 1.0625rem);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--accent);
+    margin-top: 10px;
+  }
+
+  /* ── Step cards ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .content-block {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .content-block:hover {
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--step-bg);
+    color: var(--step-text);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .step-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .step-body .lang-stack {
+    margin-bottom: 8px;
+  }
+
+  .content-block h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .content-block p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+    transition: opacity var(--transition-lang), visibility var(--transition-lang);
+  }
+
+  /* ── Language visibility & fade ── */
+  body.lang-ja .en,
+  body.lang-en .ja {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  body.lang-ja .ja,
+  body.lang-en .en {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  body.lang-switching .ja,
+  body.lang-switching .en {
+    transition-duration: 0.14s;
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <button id="lang-toggle">English</button>
+  <button id="lang-toggle" type="button" aria-label="Switch language">English</button>
 </header>
 
 <main>
@@ -91,31 +242,53 @@
     <img src="./takeoff_shoes.png" alt="靴を揃えて脱ぐ作法の図解" class="hero-image">
   </div>
 
-  <h1 class="ja">ここで靴をお脱ぎください</h1>
-  <h1 class="en">Please remove your shoes here.</h1>
-
-  <h2 class="ja">清浄な空間を保つ日本の作法</h2>
-  <h2 class="en">A Japanese Custom to Keep Spaces Clean</h2>
-
-  <div class="content-block">
-    <h3 class="ja">1. 空間の区別</h3>
-    <h3 class="en">1. Distinction of Space</h3>
-    <p class="ja">日本には、建物の「外」と「内」を明確に区別し、屋内を特別な空間として扱う文化があります。</p>
-    <p class="en">Japanese culture clearly distinguishes between the "outside" and "inside" of a building, treating the indoors as a special space.</p>
+  <div class="hero-text">
+    <div class="lang-stack">
+      <h1 class="ja">ここで靴をお脱ぎください</h1>
+      <h1 class="en">Please remove your shoes here.</h1>
+    </div>
+    <div class="lang-stack">
+      <h2 class="ja">清浄な空間を保つ日本の作法</h2>
+      <h2 class="en">A Japanese Custom to Keep Spaces Clean</h2>
+    </div>
   </div>
 
-  <div class="content-block">
-    <h3 class="ja">2. 清潔さの維持</h3>
-    <h3 class="en">2. Maintaining Cleanliness</h3>
-    <p class="ja">靴を脱ぐことは、外の汚れを持ち込まず、屋内の床や畳を清潔に保つための習慣です。</p>
-    <p class="en">Taking off shoes is a custom to prevent bringing in outside dirt and to maintain the cleanliness of the floors and tatami mats.</p>
-  </div>
+  <div class="steps">
+    <article class="content-block">
+      <div class="step-number" aria-hidden="true">1</div>
+      <div class="step-body">
+        <div class="lang-stack">
+          <h3 class="ja">空間の区別</h3>
+          <h3 class="en">Distinction of Space</h3>
+        </div>
+        <p class="ja">日本には、建物の「外」と「内」を明確に区別し、屋内を特別な空間として扱う文化があります。</p>
+        <p class="en">Japanese culture clearly distinguishes between the "outside" and "inside" of a building, treating the indoors as a special space.</p>
+      </div>
+    </article>
 
-  <div class="content-block">
-    <h3 class="ja">3. 空間への敬意</h3>
-    <h3 class="en">3. Respect for the Space</h3>
-    <p class="ja">靴を脱ぐという行為を通じて、その場所の歴史や空間に対する敬意を示しています。</p>
-    <p class="en">The act of removing shoes demonstrates respect for the history and the space itself.</p>
+    <article class="content-block">
+      <div class="step-number" aria-hidden="true">2</div>
+      <div class="step-body">
+        <div class="lang-stack">
+          <h3 class="ja">清潔さの維持</h3>
+          <h3 class="en">Maintaining Cleanliness</h3>
+        </div>
+        <p class="ja">靴を脱ぐことは、外の汚れを持ち込まず、屋内の床や畳を清潔に保つための習慣です。</p>
+        <p class="en">Taking off shoes is a custom to prevent bringing in outside dirt and to maintain the cleanliness of the floors and tatami mats.</p>
+      </div>
+    </article>
+
+    <article class="content-block">
+      <div class="step-number" aria-hidden="true">3</div>
+      <div class="step-body">
+        <div class="lang-stack">
+          <h3 class="ja">空間への敬意</h3>
+          <h3 class="en">Respect for the Space</h3>
+        </div>
+        <p class="ja">靴を脱ぐという行為を通じて、その場所の歴史や空間に対する敬意を示しています。</p>
+        <p class="en">The act of removing shoes demonstrates respect for the history and the space itself.</p>
+      </div>
+    </article>
   </div>
 </main>
 
@@ -123,26 +296,38 @@
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const toggleBtn = document.getElementById("lang-toggle");
+  const FADE_OUT_MS = 140;
+  const FADE_IN_MS = 280;
 
-  // OS/ブラウザ設定からの初期言語判定
   const userLang = navigator.language || navigator.userLanguage;
-  if (userLang.startsWith("ja")) {
-    body.classList.add("lang-ja");
-    toggleBtn.textContent = "English";
-  } else {
-    body.classList.add("lang-en");
-    toggleBtn.textContent = "日本語";
-  }
+  const isJa = userLang.startsWith("ja");
 
-  // 手動切り替え時のフォールバック処理
+  body.classList.add(isJa ? "lang-ja" : "lang-en");
+  toggleBtn.textContent = isJa ? "English" : "日本語";
+  document.documentElement.lang = isJa ? "ja" : "en";
+
   toggleBtn.addEventListener("click", () => {
-    if (body.classList.contains("lang-ja")) {
-      body.classList.replace("lang-ja", "lang-en");
-      toggleBtn.textContent = "日本語";
-    } else {
-      body.classList.replace("lang-en", "lang-ja");
-      toggleBtn.textContent = "English";
-    }
+    const switchingToEn = body.classList.contains("lang-ja");
+
+    body.classList.add("lang-switching");
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        if (switchingToEn) {
+          body.classList.replace("lang-ja", "lang-en");
+          toggleBtn.textContent = "日本語";
+          document.documentElement.lang = "en";
+        } else {
+          body.classList.replace("lang-en", "lang-ja");
+          toggleBtn.textContent = "English";
+          document.documentElement.lang = "ja";
+        }
+
+        setTimeout(() => {
+          body.classList.remove("lang-switching");
+        }, FADE_IN_MS);
+      }, FADE_OUT_MS);
+    });
   });
 });
 </script>
